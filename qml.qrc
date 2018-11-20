@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PlaceList.qml</file>
+        <file>PlaceListDelegate.qml</file>
+    </qresource>
+</RCC>
