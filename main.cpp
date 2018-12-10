@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "gamedatamodel.h"
+#include "gamedatabase.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +13,8 @@ int main(int argc, char *argv[])
     }
 
     QGuiApplication app(argc, argv);
-
+    qmlRegisterType<GameDataModel>("GameDataModel", 1, 0, "GameDataModel");
+    qmlRegisterSingletonType<GameDataBase>("GameDataBase", 1, 0, "GameDataBase", GameDataBase::gamedatabaseProvider);
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

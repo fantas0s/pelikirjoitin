@@ -1,26 +1,15 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
+import GameDataModel 1.0
 
 ListView {
     id: placeListView
+    property int currentId: 0
     anchors.left: parent.left
     anchors.bottom: parent.bottom
     anchors.top: parent.top
     width: parent.width / 3
-    model: ListModel {
-        ListElement {
-            placeNumber: 1
-            placeTitle: "Aula"
-        }
-        ListElement {
-            placeNumber: 2
-            placeTitle: "Eteinen"
-        }
-        ListElement {
-            placeNumber: 3
-            placeTitle: "Makuuhuone"
-        }
-    }
+    model: GameDataModel {}
     delegate: PlaceListDelegate {}
     focus: true
     highlight: Rectangle { color: "lightsteelblue"; radius: 10 }

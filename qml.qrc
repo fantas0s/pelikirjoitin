@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>PlaceList.qml</file>
         <file>PlaceListDelegate.qml</file>
+        <file>PlaceEditor.qml</file>
+        <file>DirectionEditor.qml</file>
+        <file>EditBox.qml</file>
     </qresource>
 </RCC>

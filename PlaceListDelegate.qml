@@ -11,7 +11,7 @@ Rectangle {
         id: idNumber
         anchors.left: parent.left
         width: 150
-        text: placeNumber
+        text: placeId
         color: "black"
         font.pixelSize: Screen.height / 25
     }
