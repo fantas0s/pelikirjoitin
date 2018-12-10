@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     gamedatabase.cpp \
-    gamedatamodel.cpp
+    gamedatamodel.cpp \
+    gamedata.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     gamedatabase.h \
-    gamedatamodel.h
+    gamedatamodel.h \
+    gamedata.h

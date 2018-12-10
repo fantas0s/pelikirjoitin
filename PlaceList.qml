@@ -1,10 +1,11 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import GameDataModel 1.0
+import GameDataBase 1.0
 
 ListView {
     id: placeListView
-    property int currentId: 0
+    property int currentId: GameDataBase.id(currentIndex)
     anchors.left: parent.left
     anchors.bottom: parent.bottom
     anchors.top: parent.top

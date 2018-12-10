@@ -22,4 +22,8 @@ Rectangle {
         color: "black"
         font.pixelSize: Screen.height / 25
     }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: placeListView.currentIndex = index
+    }
 }

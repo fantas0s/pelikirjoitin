@@ -2,10 +2,16 @@ import QtQuick 2.6
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
+import GameDataBase 1.0
 
 Item {
     id: placeEditorRoot
     property int idToView: 0
+    onIdToViewChanged: {
+        title.text = GameDataBase.title(idToView)
+        placeDescription.text = GameDataBase.description(idToView)
+        buttonRow.refreshButtons()
+    }
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -37,27 +43,19 @@ Item {
         }
         Row {
             id: buttonRow
-            height: leftButton.height
+            height: 100
             width: placeEditorRoot.width
-            DirectionEditor {
-                id: leftButton
-                text: "vasemmalle"
-                width: placeEditorRoot.width / 4
+            function refreshButtons() {
+                buttonlist.model = 0
+                buttonlist.model = GameDataBase.directionCount(idToView)
             }
-            DirectionEditor {
-                id: upButton
-                text: "eteenpäin"
-                width: placeEditorRoot.width / 4
-            }
-            DirectionEditor {
-                id: downButton
-                text: "taaksepäin"
-                width: placeEditorRoot.width / 4
-            }
-            DirectionEditor {
-                id: rightButton
-                text: "oikealle"
-                width: placeEditorRoot.width / 4
+            Repeater {
+                id: buttonlist
+                model: 0
+                delegate: DirectionEditor {
+                    text: GameDataBase.direction(idToView, index)
+                    width: placeEditorRoot.width / Math.max(1, GameDataBase.directionCount(idToView))
+                }
             }
         }
     }
