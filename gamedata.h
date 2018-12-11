@@ -10,6 +10,7 @@ public:
     QString title;
     QString description;
     QVector<QString> directionList;
+    QVector<quint32> directionIdList;
     bool operator==(const GameData &other);
 };
 
