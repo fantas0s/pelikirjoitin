@@ -1,0 +1,27 @@
+<PELIDATA versio="1.0">
+<NIMI>Esimerkkipeli</NIMI>
+<ALKU>Eteinen</ALKU>
+<PELI>
+<PAIKKA nimi="Eteinen">
+<TEKSTI>Olet eteisessä.
+Mitä haluat tehdä?</TEKSTI>
+<VALINTA kohde="Mikaelin huone">Mene Mikaelin huoneeseen</VALINTA>
+<VALINTA kohde="Nipistys">Nipistä itseäsi</VALINTA>
+<VALINTA kohde="Keittiö">Kurkista keittiöön</VALINTA>
+</PAIKKA>
+<PAIKKA nimi="Nipistys">
+<TEKSTI>Olet hereillä.
+Mitä haluat tehdä nyt?</TEKSTI>
+<VALINTA kohde="Mikaelin huone">Mene Mikaelin huoneeseen</VALINTA>
+<VALINTA kohde="Keittiö">Kurkista keittiöön</VALINTA>
+</PAIKKA>
+<PAIKKA nimi="Mikaelin huone">
+<TEKSTI>Kompastut kynnykseen ja lyöt pääsi.
+Seikkailusi päättyy tähän.</TEKSTI>
+</PAIKKA>
+<PAIKKA nimi="Keittiö">
+<TEKSTI>Kurkistat keittiöön ja mörkö syö sinut.
+Seikkailusi päättyy tähän.</TEKSTI>
+</PAIKKA>
+</PELI>
+</PELIDATA>

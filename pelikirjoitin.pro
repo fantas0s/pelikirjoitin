@@ -35,3 +35,6 @@ HEADERS += \
     gamedatabase.h \
     gamedatamodel.h \
     gamedata.h
+
+DISTFILES += \
+    samplegame.pdt
