@@ -8,8 +8,8 @@ Item {
     id: placeEditorRoot
     property int idToView: 0
     onIdToViewChanged: {
-        title.text = GameDataBase.title(idToView)
-        placeDescription.text = GameDataBase.description(idToView)
+        placeTitle.text = GameDataBase.getTitle(idToView)
+        placeDescription.text = GameDataBase.getDescription(idToView)
         refreshButtons()
     }
     Connections {
@@ -31,28 +31,28 @@ Item {
         direction2.visible = false
         direction3.visible = false
         direction4.visible = false
-        plusButton.enabled = GameDataBase.directionCount(idToView) < GameDataBase.maxDirections
-        switch (GameDataBase.directionCount(idToView)) {
+        plusButton.enabled = GameDataBase.getDirectionCount(idToView) < GameDataBase.maxDirections
+        switch (GameDataBase.getDirectionCount(idToView)) {
         default:
         case 4:
             direction4.visible = true
-            direction4.text = GameDataBase.direction(idToView, 3)
-            direction4.targetId = GameDataBase.directionTargetId(idToView, 3)
+            direction4.text = GameDataBase.getDirection(idToView, 3)
+            direction4.targetId = GameDataBase.getDirectionTargetId(idToView, 3)
             //fall through
         case 3:
             direction3.visible = true
-            direction3.text = GameDataBase.direction(idToView, 2)
-            direction3.targetId = GameDataBase.directionTargetId(idToView, 2)
+            direction3.text = GameDataBase.getDirection(idToView, 2)
+            direction3.targetId = GameDataBase.getDirectionTargetId(idToView, 2)
             //fall through
         case 2:
             direction2.visible = true
-            direction2.text = GameDataBase.direction(idToView, 1)
-            direction2.targetId = GameDataBase.directionTargetId(idToView, 1)
+            direction2.text = GameDataBase.getDirection(idToView, 1)
+            direction2.targetId = GameDataBase.getDirectionTargetId(idToView, 1)
             //fall through
         case 1:
             direction1.visible = true
-            direction1.text = GameDataBase.direction(idToView, 0)
-            direction1.targetId = GameDataBase.directionTargetId(idToView, 0)
+            direction1.text = GameDataBase.getDirection(idToView, 0)
+            direction1.targetId = GameDataBase.getDirectionTargetId(idToView, 0)
             //fall through
         case 0:
             break;
@@ -62,18 +62,21 @@ Item {
         anchors.fill: parent
         spacing: 0
         EditBox {
-            height: title.font.pixelSize + 10
+            id: titleEditor
+            height: placeTitle.font.pixelSize + 10
             anchors.left: parent.left
             anchors.right: parent.right
             TextInput {
-                id: title
+                id: placeTitle
                 anchors.centerIn: parent
                 width: parent.width - 10
                 text: "Otsikko"
                 font.pixelSize: Screen.height / 25
+                onEditingFinished: GameDataBase.setTitle(idToView, placeTitle.text)
             }
         }
         EditBox {
+            id: descriptionEditor
             anchors.left: parent.left
             anchors.right: parent.right
             height: 200
@@ -85,6 +88,7 @@ Item {
                 height: parent.height-10
                 text: "Kuvaus tulee tähän"
                 font.pixelSize: Screen.height / 25
+                onEditingFinished: GameDataBase.setDescription(idToView, placeDescription.text)
             }
         }
         DirectionEditor {
@@ -93,6 +97,7 @@ Item {
             anchors.right: parent.right
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 0)
+            onEditingFinished: GameDataBase.setDirection(idToView, 0, direction1.text)
         }
         DirectionEditor {
             id: direction2
@@ -100,6 +105,7 @@ Item {
             anchors.right: parent.right
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 1)
+            onEditingFinished: GameDataBase.setDirection(idToView, 1, direction2.text)
         }
         DirectionEditor {
             id: direction3
@@ -107,6 +113,7 @@ Item {
             anchors.right: parent.right
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 2)
+            onEditingFinished: GameDataBase.setDirection(idToView, 2, direction3.text)
         }
         DirectionEditor {
             id: direction4
@@ -114,6 +121,7 @@ Item {
             anchors.right: parent.right
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 3)
+            onEditingFinished: GameDataBase.setDirection(idToView, 3, direction4.text)
         }
         Button {
             id: plusButton

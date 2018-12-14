@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
@@ -7,7 +7,8 @@ import GameDataBase 1.0
 RowLayout {
     id: dirEditRoot
     signal removeFromDataBase()
-    property string text: "jonnekin"
+    signal editingFinished
+    property alias text: inputField.text
     property int targetId: 0
     height: dirEditBox.height
     EditBox {
@@ -22,6 +23,7 @@ RowLayout {
             width: parent.width - 10
             text: dirEditRoot.text
             font.pixelSize: Screen.height / 25
+            onEditingFinished: dirEditRoot.editingFinished()
         }
     }
     Rectangle {
@@ -31,7 +33,7 @@ RowLayout {
         border.width: 1
         border.color: "black"
         Button {
-            text: GameDataBase.title(targetId)
+            text: GameDataBase.getTitle(targetId)
             anchors.centerIn: parent
             height: parent.height - 4
             width: parent.width - 4

@@ -6,8 +6,7 @@ static const int maxNumOfDirections = 4;
 
 GameDataBase::GameDataBase()
 {
-    GameData dataItem;
-    dataItem.id = 7;
+    GameData dataItem(7);
     dataItem.title = "Eteinen";
     dataItem.description = "Olet eteisessä.\nMinne menet?";
     dataItem.directionList.append("Vessaan");
@@ -19,9 +18,8 @@ GameDataBase::GameDataBase()
     dataItem.directionIdList.append(3);
     dataItem.directionIdList.append(42);
     m_gameDataList.append(dataItem);
-    dataItem.directionList.clear();
-    dataItem.directionIdList.clear();
-    dataItem.id = 42;
+
+    dataItem = GameData(42);
     dataItem.title = "Olohuone";
     dataItem.description = "Olet Olohuoneessa.\nMinne menet?";
     dataItem.directionList.append("Keittiöön");
@@ -31,9 +29,8 @@ GameDataBase::GameDataBase()
     dataItem.directionIdList.append(4);
     dataItem.directionIdList.append(7);
     m_gameDataList.append(dataItem);
-    dataItem.directionList.clear();
-    dataItem.directionIdList.clear();
-    dataItem.id = 56;
+
+    dataItem = GameData(56);
     dataItem.title = "Keittiö";
     dataItem.description = "Keittiössä on ruokaa. Mitä teet?";
     dataItem.directionList.append("Syön");
@@ -59,31 +56,34 @@ int GameDataBase::getMaxDirections() const
     return maxNumOfDirections;
 }
 
+int GameDataBase::getIndexOf(quint32 id) const
+{
+    GameData match(id);
+    return m_gameDataList.indexOf(match);
+}
+
 GameData GameDataBase::getGameData(quint32 id) const
 {
-    GameData match;
-    match.id = id;
-    int idx = m_gameDataList.indexOf(match);
+    int idx = getIndexOf(id);
     if (idx >= 0)
         return m_gameDataList.at(idx);
     else
-        return match;
+        return GameData(id);
 }
 
 GameData& GameDataBase::getGameDataRef(quint32 id)
 {
-    static GameData match;
-    match.id = id;
-    int idx = m_gameDataList.indexOf(match);
+    int idx = getIndexOf(id);
     if (idx >= 0) {
         return m_gameDataList[idx];
     } else {
         qWarning() << "Gamedata index not found for reference!";
+        static GameData match(id);
         return match;
     }
 }
 
-quint32 GameDataBase::id(int index) const
+quint32 GameDataBase::getIdAt(int index) const
 {
     if ((index >= 0) && index < m_gameDataList.length())
         return m_gameDataList.at(index).id;
@@ -96,22 +96,22 @@ int GameDataBase::numOfPlaces() const
     return m_gameDataList.length();
 }
 
-QString GameDataBase::title(quint32 id) const
+QString GameDataBase::getTitle(quint32 id) const
 {
     return getGameData(id).title;
 }
 
-QString GameDataBase::description(quint32 id) const
+QString GameDataBase::getDescription(quint32 id) const
 {
     return getGameData(id).description;
 }
 
-int GameDataBase::directionCount(quint32 parentId) const
+int GameDataBase::getDirectionCount(quint32 parentId) const
 {
     return getGameData(parentId).directionList.length();
 }
 
-QString GameDataBase::direction(quint32 parentId, int directionIndex) const
+QString GameDataBase::getDirection(quint32 parentId, int directionIndex) const
 {
     GameData dataItem = getGameData(parentId);
     if ((directionIndex >= 0) && directionIndex < dataItem.directionList.length())
@@ -120,13 +120,46 @@ QString GameDataBase::direction(quint32 parentId, int directionIndex) const
         return QString();
 }
 
-quint32 GameDataBase::directionTargetId(quint32 parentId, int directionIndex) const
+quint32 GameDataBase::getDirectionTargetId(quint32 parentId, int directionIndex) const
 {
     GameData dataItem = getGameData(parentId);
     if ((directionIndex >= 0) && directionIndex < dataItem.directionIdList.length())
         return dataItem.directionIdList.at(directionIndex);
     else
         return 0;
+}
+
+void GameDataBase::setTitle(quint32 id, QString title)
+{
+    GameData& dataItem = getGameDataRef(id);
+    dataItem.title = title;
+    emit titleModified(id, title);
+}
+
+void GameDataBase::setDescription(quint32 id, QString description)
+{
+    GameData& dataItem = getGameDataRef(id);
+    dataItem.description = description;
+}
+
+void GameDataBase::setDirection(quint32 parentId, int directionIndex, QString direction)
+{
+    GameData& dataItem = getGameDataRef(parentId);
+    if (dataItem.directionList.length() > directionIndex) {
+        dataItem.directionList[directionIndex] = direction;
+    } else {
+        qWarning() << "Not enough directions, cannot modify" << directionIndex;
+    }
+}
+
+void GameDataBase::setDirectionTargetId(quint32 parentId, int directionIndex, quint32 targetId)
+{
+    GameData& dataItem = getGameDataRef(parentId);
+    if (dataItem.directionIdList.length() > directionIndex) {
+        dataItem.directionIdList[directionIndex] = targetId;
+    } else {
+        qWarning() << "Not enough direction IDs, cannot modify" << directionIndex;
+    }
 }
 
 void GameDataBase::addDirection(quint32 parentId, QString text, quint32 targetId)

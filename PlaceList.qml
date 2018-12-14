@@ -5,7 +5,7 @@ import GameDataBase 1.0
 
 ListView {
     id: placeListView
-    property int currentId: GameDataBase.id(currentIndex)
+    property int currentId: GameDataBase.getIdAt(currentIndex)
     anchors.left: parent.left
     anchors.bottom: parent.bottom
     anchors.top: parent.top
