@@ -19,24 +19,24 @@ public:
     Q_INVOKABLE int getDirectionCount(quint32 parentId) const;
     Q_INVOKABLE QString getDirection(quint32 parentId, int directionIndex) const;
     Q_INVOKABLE quint32 getDirectionTargetId(quint32 parentId, int directionIndex) const;
-    Q_INVOKABLE void setTitle(quint32 id, QString title);
-    Q_INVOKABLE void setDescription(quint32 id, QString description);
-    Q_INVOKABLE void setDirection(quint32 parentId, int directionIndex, QString direction);
-    Q_INVOKABLE void setDirectionTargetId(quint32 parentId, int directionIndex, quint32 targetId);
+    Q_INVOKABLE int getIndexOf(quint32 id) const;
     int numOfPlaces() const;
     int getMaxDirections() const;
-    int getIndexOf(quint32 id) const;
 signals:
-    void idDeleted(quint32 id);
     void indexDeleted(int index);
-    void idAdded(quint32 id);
     void indexAdded(int index);
-    void titleModified(quint32 id, QString title);
+    void titleModified(int index, QString title);
     void directionDeletedFromId(quint32 id);
     void directionAddedForId(quint32 id);
 public slots:
     void addDirection(quint32 parentId, QString text, quint32 targetId);
     void deleteDirection(quint32 parentId, int directionIndex);
+    void addData(QString title, QString description);
+    void deleteData(quint32 id);
+    void setTitle(quint32 id, QString title);
+    void setDescription(quint32 id, QString description);
+    void setDirection(quint32 parentId, int directionIndex, QString direction);
+    void setDirectionTargetId(quint32 parentId, int directionIndex, quint32 targetId);
 private:
     GameDataBase();
     GameData getGameData(quint32 id) const;

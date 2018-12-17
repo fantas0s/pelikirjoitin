@@ -18,6 +18,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 private slots:
     void titleModified(quint32 id, QString title);
+    void indexDeleted(int index);
+    void indexAdded(int index);
 private:
     GameDataBase* m_database;
 };

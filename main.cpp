@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQuickStyle>
 #include "gamedatamodel.h"
 #include "gamedatabase.h"
 
@@ -11,7 +12,7 @@ int main(int argc, char *argv[])
 
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     }
-
+    QQuickStyle::setStyle("Material");
     QGuiApplication app(argc, argv);
     qmlRegisterType<GameDataModel>("GameDataModel", 1, 0, "GameDataModel");
     qmlRegisterSingletonType<GameDataBase>("GameDataBase", 1, 0, "GameDataBase", GameDataBase::gamedatabaseProvider);

@@ -98,6 +98,7 @@ Item {
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 0)
             onEditingFinished: GameDataBase.setDirection(idToView, 0, direction1.text)
+            onTargetIdChanged: GameDataBase.setDirectionTargetId(idToView, 0, direction1.targetId)
         }
         DirectionEditor {
             id: direction2
@@ -106,6 +107,7 @@ Item {
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 1)
             onEditingFinished: GameDataBase.setDirection(idToView, 1, direction2.text)
+            onTargetIdChanged: GameDataBase.setDirectionTargetId(idToView, 1, direction2.targetId)
         }
         DirectionEditor {
             id: direction3
@@ -114,6 +116,7 @@ Item {
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 2)
             onEditingFinished: GameDataBase.setDirection(idToView, 2, direction3.text)
+            onTargetIdChanged: GameDataBase.setDirectionTargetId(idToView, 2, direction3.targetId)
         }
         DirectionEditor {
             id: direction4
@@ -122,6 +125,7 @@ Item {
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 3)
             onEditingFinished: GameDataBase.setDirection(idToView, 3, direction4.text)
+            onTargetIdChanged: GameDataBase.setDirectionTargetId(idToView, 3, direction4.targetId)
         }
         Button {
             id: plusButton
@@ -129,7 +133,7 @@ Item {
             height: direction1.height
             width: height
             enabled: false
-            onClicked: GameDataBase.addDirection(idToView, "Minne?", 0)
+            onClicked: GameDataBase.addDirection(idToView, "Valinnan teksti", 0)
         }
     }
 }

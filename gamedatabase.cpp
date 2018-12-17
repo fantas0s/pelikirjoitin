@@ -1,45 +1,20 @@
 #include "gamedatabase.h"
+#include <QDateTime>
 #include <QDebug>
 
 GameDataBase* GameDataBase::s_instance = nullptr;
 static const int maxNumOfDirections = 4;
+static quint32 currentId = 1;
+
+static quint32 nextFreeId()
+{
+    currentId += (qrand() % 10) + 1;
+    return currentId;
+}
 
 GameDataBase::GameDataBase()
 {
-    GameData dataItem(7);
-    dataItem.title = "Eteinen";
-    dataItem.description = "Olet eteisessä.\nMinne menet?";
-    dataItem.directionList.append("Vessaan");
-    dataItem.directionList.append("Tuulikaappiin");
-    dataItem.directionList.append("Makuuhuoneeseen");
-    dataItem.directionList.append("Olohuoneeseen");
-    dataItem.directionIdList.append(1);
-    dataItem.directionIdList.append(2);
-    dataItem.directionIdList.append(3);
-    dataItem.directionIdList.append(42);
-    m_gameDataList.append(dataItem);
-
-    dataItem = GameData(42);
-    dataItem.title = "Olohuone";
-    dataItem.description = "Olet Olohuoneessa.\nMinne menet?";
-    dataItem.directionList.append("Keittiöön");
-    dataItem.directionList.append("Kodinhoitohuoneeseen");
-    dataItem.directionList.append("Eteiseen");
-    dataItem.directionIdList.append(56);
-    dataItem.directionIdList.append(4);
-    dataItem.directionIdList.append(7);
-    m_gameDataList.append(dataItem);
-
-    dataItem = GameData(56);
-    dataItem.title = "Keittiö";
-    dataItem.description = "Keittiössä on ruokaa. Mitä teet?";
-    dataItem.directionList.append("Syön");
-    dataItem.directionList.append("Kurkistan jääkaappiin");
-    dataItem.directionList.append("Katson onko pakastimessa jäätelöä");
-    dataItem.directionIdList.append(12);
-    dataItem.directionIdList.append(13);
-    dataItem.directionIdList.append(14);
-    m_gameDataList.append(dataItem);
+    qsrand(QDateTime::currentSecsSinceEpoch());
 }
 
 QObject* GameDataBase::gamedatabaseProvider(QQmlEngine* engine, QJSEngine* scriptEngine)
@@ -133,7 +108,7 @@ void GameDataBase::setTitle(quint32 id, QString title)
 {
     GameData& dataItem = getGameDataRef(id);
     dataItem.title = title;
-    emit titleModified(id, title);
+    emit titleModified(getIndexOf(id), title);
 }
 
 void GameDataBase::setDescription(quint32 id, QString description)
@@ -185,5 +160,25 @@ void GameDataBase::deleteDirection(quint32 parentId, int directionIndex)
         emit directionDeletedFromId(parentId);
     } else {
         qWarning() << "Not enough directions, cannot remove" << directionIndex;
+    }
+}
+
+void GameDataBase::addData(QString title, QString description)
+{
+    GameData dataItem(nextFreeId());
+    dataItem.title = title;
+    dataItem.description = description;
+    m_gameDataList.append(dataItem);
+    int idx = getIndexOf(dataItem.id);
+    if (idx >= 0)
+        emit indexAdded(idx);
+}
+
+void GameDataBase::deleteData(quint32 id)
+{
+    int idx = getIndexOf(id);
+    if (idx >= 0) {
+        m_gameDataList.removeAt(idx);
+        emit indexDeleted(idx);
     }
 }

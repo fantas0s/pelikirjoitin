@@ -6,6 +6,8 @@ GameDataModel::GameDataModel()
 {
     m_database = qobject_cast<GameDataBase*>(GameDataBase::gamedatabaseProvider(nullptr, nullptr));
     connect(m_database, &GameDataBase::titleModified, this, &GameDataModel::titleModified);
+    connect(m_database, &GameDataBase::indexDeleted, this, &GameDataModel::indexDeleted);
+    connect(m_database, &GameDataBase::indexAdded, this, &GameDataModel::indexAdded);
 }
 
 QModelIndex GameDataModel::index(int row, int column,
@@ -64,4 +66,16 @@ void GameDataModel::titleModified(quint32 id, QString title)
         (idx < m_database->numOfPlaces())) {
         dataChanged(index(idx, 0), index(idx,0), QVector<int>() << PlaceTitleRole);
     }
+}
+
+void GameDataModel::indexDeleted(int index)
+{
+    beginRemoveRows(QModelIndex(), index, index);
+    endRemoveRows();
+}
+
+void GameDataModel::indexAdded(int index)
+{
+    beginInsertRows(QModelIndex(), index, index);
+    endInsertRows();
 }
