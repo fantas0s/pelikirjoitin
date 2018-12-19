@@ -63,9 +63,10 @@ Item {
         spacing: 0
         EditBox {
             id: titleEditor
+            Layout.alignment: Qt.AlignCenter
             height: placeTitle.font.pixelSize + 10
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: 10
+            Layout.fillWidth: true
             TextInput {
                 id: placeTitle
                 anchors.centerIn: parent
@@ -77,9 +78,9 @@ Item {
         }
         EditBox {
             id: descriptionEditor
-            anchors.left: parent.left
-            anchors.right: parent.right
             height: 200
+            width: 10
+            Layout.fillWidth: true
             Layout.fillHeight: true
             TextEdit {
                 id: placeDescription
@@ -93,8 +94,8 @@ Item {
         }
         DirectionEditor {
             id: direction1
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: placeEditorRoot.width
+            Layout.fillWidth: true
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 0)
             onEditingFinished: GameDataBase.setDirection(idToView, 0, direction1.text)
@@ -102,8 +103,8 @@ Item {
         }
         DirectionEditor {
             id: direction2
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: placeEditorRoot.width
+            Layout.fillWidth: true
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 1)
             onEditingFinished: GameDataBase.setDirection(idToView, 1, direction2.text)
@@ -111,8 +112,8 @@ Item {
         }
         DirectionEditor {
             id: direction3
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: placeEditorRoot.width
+            Layout.fillWidth: true
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 2)
             onEditingFinished: GameDataBase.setDirection(idToView, 2, direction3.text)
@@ -120,8 +121,8 @@ Item {
         }
         DirectionEditor {
             id: direction4
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: placeEditorRoot.width
+            Layout.fillWidth: true
             text: ""
             onRemoveFromDataBase: GameDataBase.deleteDirection(idToView, 3)
             onEditingFinished: GameDataBase.setDirection(idToView, 3, direction4.text)

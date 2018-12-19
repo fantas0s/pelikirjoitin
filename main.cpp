@@ -3,6 +3,7 @@
 #include <QQuickStyle>
 #include "gamedatamodel.h"
 #include "gamedatabase.h"
+#include "databasefilewriter.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     QGuiApplication app(argc, argv);
     qmlRegisterType<GameDataModel>("GameDataModel", 1, 0, "GameDataModel");
+    qmlRegisterType<DataBaseFileWriter>("DataBaseFileWriter", 1, 0, "DataBaseFileWriter");
     qmlRegisterSingletonType<GameDataBase>("GameDataBase", 1, 0, "GameDataBase", GameDataBase::gamedatabaseProvider);
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

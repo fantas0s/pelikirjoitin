@@ -16,7 +16,8 @@ SOURCES += \
         main.cpp \
     gamedatabase.cpp \
     gamedatamodel.cpp \
-    gamedata.cpp
+    gamedata.cpp \
+    databasefilewriter.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     gamedatabase.h \
     gamedatamodel.h \
-    gamedata.h
+    gamedata.h \
+    databasefilewriter.h
 
 DISTFILES += \
     samplegame.pdt
