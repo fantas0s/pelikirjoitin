@@ -60,6 +60,7 @@ Window {
         visible: !listOfPlaces.count
     }
     PlaceEditor {
+        visible: listOfPlaces.count > 0
         idToView: listOfPlaces.currentId
         anchors.left: listOfPlaces.right
         anchors.bottom: parent.bottom
