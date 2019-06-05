@@ -7,6 +7,7 @@ Row {
     height: listItemContainer.height
     anchors.left: parent.left
     anchors.right: parent.right
+    anchors.rightMargin: parent.width / 20
     Rectangle {
         id: listItemContainer
         border.color: "grey"

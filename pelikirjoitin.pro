@@ -17,7 +17,8 @@ SOURCES += \
     gamedatabase.cpp \
     gamedatamodel.cpp \
     gamedata.cpp \
-    databasefilewriter.cpp
+    databasefilewriter.cpp \
+    databasefilereader.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,7 +37,8 @@ HEADERS += \
     gamedatabase.h \
     gamedatamodel.h \
     gamedata.h \
-    databasefilewriter.h
+    databasefilewriter.h \
+    databasefilereader.h
 
 DISTFILES += \
     samplegame.pdt

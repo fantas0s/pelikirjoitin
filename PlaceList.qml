@@ -15,6 +15,7 @@ ListView {
     focus: true
     highlight: Rectangle { color: "lightsteelblue"; radius: 10 }
     ScrollBar.vertical: ScrollBar {
+
         anchors.top: placeListView.top
         anchors.right: placeListView.right
         anchors.bottom: placeListView.bottom

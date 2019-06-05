@@ -1,4 +1,5 @@
 #include "gamedatamodel.h"
+#include <QDebug>
 
 #define FIXED_NUM_ITEMS  3
 
@@ -58,13 +59,12 @@ QHash<int, QByteArray> GameDataModel::roleNames() const
     return roles;
 }
 
-void GameDataModel::titleModified(quint32 id, QString title)
+void GameDataModel::titleModified(int idx, QString title)
 {
     Q_UNUSED(title);
-    int idx = m_database->getIndexOf(id);
     if ((idx >=0) &&
         (idx < m_database->numOfPlaces())) {
-        dataChanged(index(idx, 0), index(idx,0), QVector<int>() << PlaceTitleRole);
+        emit dataChanged(index(idx, 0), index(idx,0), QVector<int>() << PlaceTitleRole);
     }
 }
 

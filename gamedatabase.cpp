@@ -107,6 +107,7 @@ quint32 GameDataBase::getDirectionTargetId(quint32 parentId, int directionIndex)
 void GameDataBase::setTitle(quint32 id, QString title)
 {
     GameData& dataItem = getGameDataRef(id);
+    qDebug() << "Change to ID" << id;
     dataItem.title = title;
     emit titleModified(getIndexOf(id), title);
 }
@@ -169,6 +170,7 @@ void GameDataBase::addData(QString title, QString description)
     dataItem.title = title;
     dataItem.description = description;
     m_gameDataList.append(dataItem);
+    qDebug() << "Added" << dataItem.id;
     int idx = getIndexOf(dataItem.id);
     if (idx >= 0)
         emit indexAdded(idx);
@@ -181,4 +183,14 @@ void GameDataBase::deleteData(quint32 id)
         m_gameDataList.removeAt(idx);
         emit indexDeleted(idx);
     }
+}
+
+quint32 GameDataBase::getIdOf(const QString title) const
+{
+    for (GameData data : m_gameDataList) {
+        if (data.title == title) {
+            return data.id;
+        }
+    }
+    return 0;
 }

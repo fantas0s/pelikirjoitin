@@ -22,6 +22,7 @@ public:
     Q_INVOKABLE int getIndexOf(quint32 id) const;
     int numOfPlaces() const;
     int getMaxDirections() const;
+    quint32 getIdOf(const QString title) const;
 signals:
     void indexDeleted(int index);
     void indexAdded(int index);

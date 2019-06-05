@@ -17,7 +17,7 @@ public:
     Q_INVOKABLE QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 private slots:
-    void titleModified(quint32 id, QString title);
+    void titleModified(int index, QString title);
     void indexDeleted(int index);
     void indexAdded(int index);
 private:
