@@ -4,6 +4,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 import GameDataBase 1.0
 import DataBaseFileWriter 1.0
+import DataBaseFileReader 1.0
 
 Window {
     visible: true
@@ -17,6 +18,7 @@ Window {
         anchors.top: parent.top
         Button {
             text: "Avaa aikaisempi peli"
+            onClicked: fileReader.readGame()
         }
         Button {
             text: "Tallenna peli"
@@ -33,6 +35,17 @@ Window {
             saveResultDialog.open()
         }
         onSaveFailed: {
+            saveResultDialog.title = "Virhe: "+errorText
+            saveResultDialog.open()
+        }
+    }
+    DataBaseFileReader {
+        id: fileReader
+        onReadSuccessful: {
+            saveResultDialog.title = "Avaaminen onnistui."
+            saveResultDialog.open()
+        }
+        onReadFailed: {
             saveResultDialog.title = "Virhe: "+errorText
             saveResultDialog.open()
         }

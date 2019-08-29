@@ -30,6 +30,7 @@ bool DataBaseFileReader::readGame()
     bool successRead = false;
     if (input.open(QIODevice::ReadOnly)) {
         QXmlStreamReader stream(&input);
+        stream.readNextStartElement();
         if (stream.isStartElement() && stream.name() == s_topLevelElementName) {
             while (stream.readNextStartElement()) {
                 if (stream.name() == s_gameElementName) {
@@ -70,7 +71,7 @@ bool DataBaseFileReader::readPlaces(QXmlStreamReader& stream)
 
 bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream)
 {
-    bool successRead = false;
+    bool successRead = true;
     QString title;
     QXmlStreamAttributes attributes = stream.attributes();
     for (QXmlStreamAttribute& attr : attributes) {
@@ -82,10 +83,11 @@ bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream)
     QString description;
     QStringList choiceTexts;
     QStringList choiceTargets;
-    while (stream.readNextStartElement()) {
+    while (successRead &&
+           stream.readNextStartElement()) {
         if (stream.name() == s_textElementName) {
             if (description.isEmpty()) {
-                successRead = true;
+                description = stream.readElementText();
             } else {
                 qWarning() << "Double description!";
                 successRead = false;
@@ -117,6 +119,7 @@ bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream)
             quint32 parentId = m_database->getIdOf(title);
             int targetIdx = 0;
             for (QString& str : choiceTexts) {
+                // TODO: A target that will appear later cannot be referenced yet! Store also IDs to XML?
                 m_database->addDirection(parentId, str, m_database->getIdOf(choiceTargets[targetIdx]));
                 targetIdx++;
             }
