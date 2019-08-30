@@ -2,8 +2,10 @@
 #define DATABASEFILEREADER_H
 #include <QObject>
 #include <QString>
+#include <QList>
 class GameDataBase;
 class QXmlStreamReader;
+class ChoiceTempStoreItem;
 
 class DataBaseFileReader : public QObject
 {
@@ -18,7 +20,7 @@ public slots:
 private:
     GameDataBase *m_database;
     bool readPlaces(QXmlStreamReader &stream);
-    bool readAndStoreAPlace(QXmlStreamReader &stream);
+    bool readAndStoreAPlace(QXmlStreamReader &stream, QList<ChoiceTempStoreItem> *choiceItemStore);
 };
 
 #endif // DATABASEFILEREADER_H

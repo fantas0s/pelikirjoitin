@@ -1,5 +1,6 @@
 #include "databasefilereader.h"
 #include "gamedatabase.h"
+#include "choicetempstoreitem.h"
 #include <QXmlStreamReader>
 #include <QDebug>
 
@@ -55,9 +56,10 @@ bool DataBaseFileReader::readGame()
 bool DataBaseFileReader::readPlaces(QXmlStreamReader& stream)
 {
     bool successRead = false;
+    QList<ChoiceTempStoreItem> choiceStorage;
     while (stream.readNextStartElement()) {
         if (stream.name() == s_placeElementName) {
-            successRead = readAndStoreAPlace(stream);
+            successRead = readAndStoreAPlace(stream, &choiceStorage);
             if (!successRead) {
                 break;
             }
@@ -65,11 +67,21 @@ bool DataBaseFileReader::readPlaces(QXmlStreamReader& stream)
             stream.skipCurrentElement();
         }
     }
+    if (successRead) {
+        for (ChoiceTempStoreItem item : choiceStorage) {
+            quint32 parentId = m_database->getIdOf(item.parentName);
+            int targetIdx = 0;
+            for (QString& str : item.choices) {
+                m_database->addDirection(parentId, str, m_database->getIdOf(item.choiceTargets[targetIdx]));
+                targetIdx++;
+            }
+        }
+    }
     return successRead;
 }
 
 
-bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream)
+bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream, QList<ChoiceTempStoreItem> *choiceItemStore)
 {
     bool successRead = true;
     QString title;
@@ -116,13 +128,15 @@ bool DataBaseFileReader::readAndStoreAPlace(QXmlStreamReader &stream)
             successRead = false;
         } else {
             m_database->addData(title, description);
-            quint32 parentId = m_database->getIdOf(title);
+            ChoiceTempStoreItem itemToAdd;
             int targetIdx = 0;
+            itemToAdd.parentName = title;
             for (QString& str : choiceTexts) {
-                // TODO: A target that will appear later cannot be referenced yet! Store also IDs to XML?
-                m_database->addDirection(parentId, str, m_database->getIdOf(choiceTargets[targetIdx]));
+                itemToAdd.choices << str;
+                itemToAdd.choiceTargets << choiceTargets[targetIdx];
                 targetIdx++;
             }
+            choiceItemStore->append(itemToAdd);
         }
     }
     return successRead;

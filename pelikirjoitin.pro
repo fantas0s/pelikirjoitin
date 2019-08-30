@@ -38,7 +38,8 @@ HEADERS += \
     gamedatamodel.h \
     gamedata.h \
     databasefilewriter.h \
-    databasefilereader.h
+    databasefilereader.h \
+    choicetempstoreitem.h
 
 DISTFILES += \
     samplegame.pdt
