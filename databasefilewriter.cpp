@@ -25,6 +25,11 @@ DataBaseFileWriter::DataBaseFileWriter(QObject *parent) :
 
 void DataBaseFileWriter::saveGame(QString gameName)
 {
+    QString errorString = m_database->getConflictString();
+    if (!errorString.isEmpty()) {
+        emit saveFailed(errorString);
+        return;
+    }
     QFile output("testfile.txt");
     if (output.open(QIODevice::WriteOnly)) {
         QXmlStreamWriter stream(&output);

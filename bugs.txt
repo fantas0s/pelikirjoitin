@@ -1,0 +1,6 @@
+- Ei "2 samannimistä paikkaa"-tarkistusta tallennuksessa (ei myöskään "tarkista"-nappia).
+  getConflictString() löytyy gameDataBasessa, sillä saa virheilmoituksen jos on. Nappi voi käyttää myös.
+- Uuden paikan oletusnimi "otsikko". WTF? "Paikka?"
+- Kun lisää uuden paikan, niin se ei vaihdu fokukseen
+- Kun lisää uusia paikkoja, tulee "otsikko", "otsikko", "otsikko", ... Pitäisi olla "Paikka". "Paikka(1)", "Paikka(2)", tjsp.
+- Kun alkaa muokkaamaan uutta paikkaa, "select all" sille oletustekstille? Voiko kentässä olla "oletusteksti" joka tulee aina jos kenttä on tyhjä?

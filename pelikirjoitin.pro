@@ -42,4 +42,5 @@ HEADERS += \
     choicetempstoreitem.h
 
 DISTFILES += \
-    samplegame.pdt
+    samplegame.pdt \
+    bugs.txt

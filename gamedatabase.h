@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE QString getDirection(quint32 parentId, int directionIndex) const;
     Q_INVOKABLE quint32 getDirectionTargetId(quint32 parentId, int directionIndex) const;
     Q_INVOKABLE int getIndexOf(quint32 id) const;
+    Q_INVOKABLE QString getConflictString() const;
     int numOfPlaces() const;
     int getMaxDirections() const;
     quint32 getIdOf(const QString title) const;

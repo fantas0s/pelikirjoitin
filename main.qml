@@ -83,7 +83,6 @@ Window {
     Dialog {
         id: saveResultDialog
         width: 400
-        height: 100
         x: parent.width / 2 - width/2
         y: parent.height / 2 - height/2
         modal: true

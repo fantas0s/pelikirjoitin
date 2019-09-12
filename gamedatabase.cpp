@@ -37,6 +37,31 @@ int GameDataBase::getIndexOf(quint32 id) const
     return m_gameDataList.indexOf(match);
 }
 
+QString GameDataBase::getConflictString() const
+{
+    QString returnValue;
+    QStringList duplicateTitles;
+    QList<GameData>::const_iterator iter;
+    for (iter = m_gameDataList.constBegin() ; iter != m_gameDataList.constEnd() ; ++iter) {
+        QList<GameData>::const_iterator conflictSearchIter(iter);
+        conflictSearchIter++;
+        while (conflictSearchIter != m_gameDataList.constEnd()) {
+            if (iter->title == conflictSearchIter->title) {
+                duplicateTitles << iter->title;
+                break;
+            }
+            conflictSearchIter++;
+        }
+    }
+    if (!duplicateTitles.isEmpty()) {
+        returnValue = QString("Sama paikka löytyi kahdesti:\n");
+        for (QString str : duplicateTitles) {
+            returnValue += str + "\n";
+        }
+    }
+    return returnValue;
+}
+
 GameData GameDataBase::getGameData(quint32 id) const
 {
     int idx = getIndexOf(id);
