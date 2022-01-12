@@ -1,6 +1,7 @@
 #include "databasefilewriter.h"
 #include "gamedatabase.h"
 #include <QXmlStreamWriter>
+#include <QFile>
 
 #define VERSION_MAJOR  1
 #define VERSION_MINOR  0

@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
-import QtQuick.Window 2.2
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
 import GameDataBase 1.0
 
 Item {
@@ -14,12 +14,12 @@ Item {
     }
     Connections {
         target: GameDataBase
-        onDirectionDeletedFromId: {
+        function onDirectionDeletedFromId(id) {
             if (id === idToView) {
                 refreshButtons()
             }
         }
-        onDirectionAddedForId: {
+        function onDirectionAddedForId(id) {
             if (id === idToView) {
                 refreshButtons()
             }
@@ -70,8 +70,8 @@ Item {
             TextInput {
                 id: placeTitle
                 anchors.centerIn: parent
+                selectByMouse: true
                 width: parent.width - 10
-                text: "Otsikko"
                 font.pixelSize: Screen.height / 25
                 onEditingFinished: GameDataBase.setTitle(idToView, placeTitle.text)
             }
@@ -84,10 +84,10 @@ Item {
             Layout.fillHeight: true
             TextEdit {
                 id: placeDescription
+                selectByMouse: true
                 anchors.centerIn: parent
                 width: parent.width-10
                 height: parent.height-10
-                text: "Kuvaus tulee tähän"
                 font.pixelSize: Screen.height / 25
                 onEditingFinished: GameDataBase.setDescription(idToView, placeDescription.text)
             }
@@ -134,6 +134,7 @@ Item {
             height: direction1.height
             width: height
             enabled: false
+            font.pixelSize: placeTitle.font.pixelSize * 0.8
             onClicked: GameDataBase.addDirection(idToView, "Valinnan teksti", 0)
         }
     }

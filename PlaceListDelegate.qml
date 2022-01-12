@@ -1,6 +1,6 @@
-import QtQuick 2.6
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
 import GameDataBase 1.0
 
 Row {
@@ -32,6 +32,7 @@ Row {
         height: listItemContainer.height
         width: height
         text: "-"
+        font.pixelSize: label.font.pixelSize * 0.8
         onClicked: GameDataBase.deleteData(placeId)
     }
 }

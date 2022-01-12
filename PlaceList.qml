@@ -1,5 +1,5 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.0
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 import GameDataModel 1.0
 import GameDataBase 1.0
 

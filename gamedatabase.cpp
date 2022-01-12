@@ -1,5 +1,6 @@
 #include "gamedatabase.h"
 #include <QDateTime>
+#include <QRandomGenerator>
 #include <QDebug>
 
 GameDataBase* GameDataBase::s_instance = nullptr;
@@ -8,13 +9,12 @@ static quint32 currentId = 1;
 
 static quint32 nextFreeId()
 {
-    currentId += (qrand() % 10) + 1;
+    currentId += (QRandomGenerator::global()->generate() % 10) + 1;
     return currentId;
 }
 
 GameDataBase::GameDataBase()
 {
-    qsrand(QDateTime::currentSecsSinceEpoch());
 }
 
 QObject* GameDataBase::gamedatabaseProvider(QQmlEngine* engine, QJSEngine* scriptEngine)

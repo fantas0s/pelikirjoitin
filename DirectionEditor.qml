@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.2
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import GameDataBase 1.0
 import GameDataModel 1.0
 
@@ -20,6 +20,7 @@ RowLayout {
         Layout.fillWidth: true
         TextInput {
             id: inputField
+            selectByMouse: true
             anchors.centerIn: parent
             width: parent.width - 10
             text: dirEditRoot.text
@@ -50,6 +51,7 @@ RowLayout {
         height: dirEditBox.height
         width: height
         text: "-"
+        font.pixelSize: inputField.font.pixelSize * 0.8
         onClicked: dirEditRoot.removeFromDataBase()
     }
 }

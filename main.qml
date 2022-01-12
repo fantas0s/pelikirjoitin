@@ -8,8 +8,8 @@ import DataBaseFileReader 1.0
 
 Window {
     visible: true
-    width: Screen.width
-    height: Screen.height
+    width: Screen.width * 0.7
+    height: Screen.height * 0.7
     title: qsTr("Pelikirjoitin")
     RowLayout {
         id: menuBar
@@ -64,6 +64,7 @@ Window {
         anchors.bottom: parent.bottom
         width: parent.width / 3
         text: "+"
+        font.pixelSize: Screen.height / 31
         onClicked: GameDataBase.addData("otsikko", "kuvaus")
     }
     Text {

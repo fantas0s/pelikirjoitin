@@ -2,6 +2,7 @@
 #include "gamedatabase.h"
 #include "choicetempstoreitem.h"
 #include <QXmlStreamReader>
+#include <QFile>
 #include <QDebug>
 
 #define VERSION_MAJOR  1
